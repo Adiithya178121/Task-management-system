@@ -1,0 +1,74 @@
+let tasks = [] 
+function add_tasks(title) {
+    tasks.push({title, status : "pending" })
+    return this
+}
+function mark_completed(title){
+    tasks = tasks.map(task =>{
+        if (task.title === title){
+            return {...tasks, status : "completed"}
+        } else {
+            return task
+        }
+            
+        })
+        return this
+}
+function filter_tasks(status) {
+    return tasks.filter(task => {
+        if (task.status === status)
+        return true 
+        else 
+        return fasle 
+    } )
+}
+function list_all_tasks(){
+    tasks.forEach0((task, index) => {
+        console.log(`${index + 1}. ${task.title} - ${task.status}`)
+    })
+    return this
+}
+function sort_tasks(){
+    tasks.sort((a,b) => {
+        if (a.title < b.title) {
+            return -1
+        }
+        else if (a.title > b.title){
+            return 1
+        }
+        else {
+            return 0
+        }
+    })
+    return this
+    }
+    function count_tasks() {
+        return tasks.reduce((acc,task) => {
+            if(task.status === "completed"){
+                acc.completed = (acc.completed || 0) +1
+            }
+            else if (task.status === "pending"){
+                acc.pending = (acc.pending || 0) + 1
+            }
+            return acc
+        },{})
+    }
+    return { add_tasks, mark_completed,filter_tasks,list_all_tasks,sort_tasks,count_tasks
+        
+    }
+    let taskmanager_system = taskmanager()
+    taskmanager_system
+    .add_tasks("go to gym")
+    .add_tasks("join class")
+    .add_tasks("do assignments")
+    .sort_tasks()
+    .list_all_tasks()
+    console.log("tasks counts", taskmanager_system.count_tasks())
+    let pending_task = taskmanager_system.filter_tasks("pending")
+    let completer_task = taskmanager_system.filter_tasks("completed")
+    pending_task.forEach((task,index) => {
+        console.log(`${index +1}. ${task.title} - ${task.status}`)
+    })
+        completer_task.forEach((task,index) => {
+        console.log(`${index +1}. ${task.title} - ${task.status}`)
+    })
